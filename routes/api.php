@@ -25,6 +25,8 @@ Route::group(['prefix'=>'auth'], function ($router) {
     Route::post('login', [\App\Http\Controllers\Auth\LoginController::class, 'login']);
 });
 
+// Route::post('/member',function(){ return 'member页面';};);
+Route::post('logout', function(){ return 'member页面';});
 
 // 路由分组
 Route::group(['middleware' => 'api','prefix'=>'auth'], function ($router) {

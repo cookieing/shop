@@ -23,16 +23,15 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix'=>'auth'], function ($router) {
     Route::post('register', [\App\Http\Controllers\Auth\RegisterController::class, 'store']);
     Route::post('login', [\App\Http\Controllers\Auth\LoginController::class, 'login']);
+    Route::group(['middleware' => 'api.auth'], function ($router) {
+        Route::post('logout', 'AuthController@logout');//退出登录
+        Route::post('refresh', 'AuthController@refresh');// 刷新token
+        Route::post('me', 'AuthController@me');
+    
+    });
 });
 
 // Route::post('/member',function(){ return 'member页面';};);
 Route::post('logout', function(){ return 'member页面';});
 
 // 路由分组
-Route::group(['middleware' => 'api','prefix'=>'auth'], function ($router) {
-    
-    Route::post('logout', 'AuthController@logout');
-    Route::post('refresh', 'AuthController@refresh');
-    Route::post('me', 'AuthController@me');
-
-});

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 class LoginController extends Controller
 {
@@ -22,13 +23,34 @@ class LoginController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function login()
+    public function login(Request $request)
     {
-        $credentials = request(['email', 'password']);
-        $user = User::where($credentials)->first();
-        $token = Auth::guard('api')->fromUser($user);
-       
-        return $this->respondWithToken($token);
+        try{
+            $credentials = $request -> all();
+
+            $validate = Validator::make($credentials,[
+                'email' => 'required',
+                'password' => 'required',
+            ],[
+                "email.required" => "邮箱不能为空",
+                "password.required" => "密码不能为空",
+            ]);
+            // 自定义验证前端发送的 参数是否有
+            if($validate->fails()) throw new \Exception($validate->errors()->first());
+
+            $user = User::where($credentials)->first();
+            
+            $token = Auth::guard('api')->fromUser($user);
+        
+            return $this->respondWithToken($token);
+        }catch(\Exception $e){
+            return response()->json([ 
+                'code' => 100,
+                'msg' => $e->getMessage(),
+                // 'lien' => $e->getLine()
+            ]);
+        }
+        
     }
 
     /**
@@ -64,7 +86,7 @@ class LoginController extends Controller
     }
 
     /**
-     * Get the token array structure.
+     * 格式化返回
      *
      * @param  string $token
      *

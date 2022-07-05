@@ -30,7 +30,7 @@ class RegisterController extends Controller
             $user -> name = $request->input('name');
             $user -> email = $request->input('email');
             // 需要加密 bcrypt()
-            $user -> password =  bcrypt($request->input('password'));
+            $user -> password =  $request->input('password');
             $user -> save();
             return response()->json([
                 'code' => 200,
@@ -40,12 +40,9 @@ class RegisterController extends Controller
             return response()->json([ 
                 'code' => 201,
                 'msg' => $e->getMessage(),
-                'lien' => $e->getLine()
+                // 'lien' => $e->getLine()
             ]);
         }
-        // $data = $request->all();
-        // DB::table('user') -> insert($data);
-        // return $data;
         
     }
 }

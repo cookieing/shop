@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 
 // Route::post('login','AuthController@login');
 
+// 
 Route::group(['prefix'=>'auth'], function ($router) {
     Route::post('register', [\App\Http\Controllers\Auth\RegisterController::class, 'store']);
     Route::post('login', [\App\Http\Controllers\Auth\LoginController::class, 'login']);
@@ -27,9 +28,15 @@ Route::group(['prefix'=>'auth'], function ($router) {
         Route::post('logout', 'AuthController@logout');//退出登录
         Route::post('refresh', 'AuthController@refresh');// 刷新token
         Route::post('me', 'AuthController@me');
-    
     });
 });
+
+Route::group(['middleware' => 'api.auth','prefix'=>'admin'], function ($router) {
+    Route::post('getUser', [\App\Http\Controllers\Admin\UserController::class, 'getUser']);//退出登录
+    
+});
+
+
 
 // Route::post('/member',function(){ return 'member页面';};);
 Route::post('logout', function(){ return 'member页面';});

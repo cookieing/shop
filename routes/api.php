@@ -32,7 +32,7 @@ Route::group(['prefix'=>'auth'], function ($router) {
 });
 
 Route::group(['middleware' => 'api.auth','prefix'=>'admin'], function ($router) {
-    Route::post('getUser', [\App\Http\Controllers\Admin\UserController::class, 'getUser']);//退出登录
+    Route::post('user', [\App\Http\Controllers\Admin\UserController::class, 'getUser']);//退出登录
     
 });
 

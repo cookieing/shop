@@ -41,7 +41,10 @@ class LoginController extends Controller
             $user = User::where($credentials)->first();
             
             $token = Auth::guard('api')->fromUser($user);
-        
+            // 检查用户状态
+            if($user -> is_locked == '否'){
+                return response()->json(['code' => 100, 'msg'=>'用户被锁定']);
+            }
             return $this->respondWithToken($token);
         }catch(\Exception $e){
             return response()->json([ 

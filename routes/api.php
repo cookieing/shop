@@ -20,7 +20,8 @@ use Illuminate\Support\Facades\Route;
 
 // Route::post('login','AuthController@login');
 
-// 
+// Authorization
+
 Route::group(['prefix'=>'auth'], function ($router) {
     Route::post('register', [\App\Http\Controllers\Auth\RegisterController::class, 'store']);
     Route::post('login', [\App\Http\Controllers\Auth\LoginController::class, 'login']);
@@ -32,8 +33,12 @@ Route::group(['prefix'=>'auth'], function ($router) {
 });
 
 Route::group(['middleware' => 'api.auth','prefix'=>'admin'], function ($router) {
-    Route::post('user', [\App\Http\Controllers\Admin\UserController::class, 'getUser']);//退出登录
-    
+    // 用户管理
+    Route::post('user', [\App\Http\Controllers\Admin\UserController::class, 'getUser']);//获取用户列表
+    Route::post('lock', [\App\Http\Controllers\Admin\UserController::class, 'lock']);//修改用户状态
+    // 分类管理
+    Route::post('category', [\App\Http\Controllers\Admin\CategoryController::class, 'index']);//获取列表
+    Route::post('category/add', [\App\Http\Controllers\Admin\CategoryController::class, 'store']);//添加分类
 });
 
 

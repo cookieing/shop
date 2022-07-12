@@ -38,7 +38,9 @@ Route::group(['middleware' => 'api.auth','prefix'=>'admin'], function ($router) 
     Route::post('lock', [\App\Http\Controllers\Admin\UserController::class, 'lock']);//修改用户状态
     // 分类管理
     Route::post('category', [\App\Http\Controllers\Admin\CategoryController::class, 'index']);//获取列表
-    Route::post('category/add', [\App\Http\Controllers\Admin\CategoryController::class, 'store']);//添加分类
+    Route::post('category/edit', [\App\Http\Controllers\Admin\CategoryController::class, 'edit']);//添加修改分类
+    Route::post('category/show', [\App\Http\Controllers\Admin\CategoryController::class, 'show']);//分类详情
+    Route::post('category/status', [\App\Http\Controllers\Admin\CategoryController::class, 'status']);//更改分类状态
 });
 
 

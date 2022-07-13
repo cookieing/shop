@@ -41,6 +41,9 @@ Route::group(['middleware' => 'api.auth','prefix'=>'admin'], function ($router) 
     Route::post('category/edit', [\App\Http\Controllers\Admin\CategoryController::class, 'edit']);//添加修改分类
     Route::post('category/show', [\App\Http\Controllers\Admin\CategoryController::class, 'show']);//分类详情
     Route::post('category/status', [\App\Http\Controllers\Admin\CategoryController::class, 'status']);//更改分类状态
+    // 商品管理
+    Route::post('goods/edit', [\App\Http\Controllers\Admin\GoodsController::class, 'edit']);//添加商品
+    Route::post('goods', [\App\Http\Controllers\Admin\GoodsController::class, 'index']);//获取商品列表
 });
 
 

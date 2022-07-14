@@ -52,7 +52,11 @@ return [
             'endpoint' => env('AWS_ENDPOINT'),
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
         ],
-
+        
+        // # OSS_ACCESS_KEY=LTAI5t6zxMeiZwarduyMHHrJ
+        // # OSS_SECRET_KEY=jANdYPpHF5eqqFsXMLzCjJVYuu6sR3
+        // # OSS_ENDPOINT=https://oss-cn-shenzhen.aliyuncs.com
+        // # OSS_BUCKET=php-shop-api
     ],
 
     /*

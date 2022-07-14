@@ -29,6 +29,9 @@ Route::group(['prefix'=>'auth'], function ($router) {
         Route::post('logout', 'AuthController@logout');//退出登录
         Route::post('refresh', 'AuthController@refresh');// 刷新token
         Route::post('me', 'AuthController@me');
+        // 阿里云OSS token
+        Route::post('token', [\App\Http\Controllers\Auth\OssController::class, 'token']);
+
     });
 });
 
@@ -44,6 +47,9 @@ Route::group(['middleware' => 'api.auth','prefix'=>'admin'], function ($router) 
     // 商品管理
     Route::post('goods/edit', [\App\Http\Controllers\Admin\GoodsController::class, 'edit']);//添加商品
     Route::post('goods', [\App\Http\Controllers\Admin\GoodsController::class, 'index']);//获取商品列表
+    // 评价管理
+    Route::post('comment/edit', [\App\Http\Controllers\Admin\CommentController::class, 'edit']);//添加评价
+    Route::post('comment', [\App\Http\Controllers\Admin\CommentController::class, 'index']);//获取评价
 });
 
 
